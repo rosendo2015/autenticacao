@@ -1,7 +1,13 @@
 const AppError = require("../util/AppError")
 const sqliteConnect = require("../database/sqlite")
-const { hash } = require("bcryptjs")
+const { hash, compare } = require("bcryptjs")
 class UserController {
+  async list(request, response) {
+    const { name, email, password } = request.body
+    const database = await sqliteConnect()
+    const listUsers = await database.get("SELECT * FROM users")
+    return response.status(200).json({ listUsers });
+  }
   async create(request, response) {
     const { name, email, password } = request.body
     const database = await sqliteConnect()
@@ -16,10 +22,10 @@ class UserController {
       "INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [name, email, hashedPassword]
     )
 
-    response.status(201).json()
+    return response.status(201).json()
   }
   async update(request, response) {
-    const { name, email } = request.body;
+    const { name, email, avatar, password, old_password } = request.body;
     const { id } = request.params;
 
     const database = await sqliteConnect()
@@ -33,13 +39,28 @@ class UserController {
     }
     user.name = name ?? user.name
     user.email = email ?? user.email
+    user.avatar = avatar ?? user.avatar
+
+    if (password && !old_password) {
+      throw new AppError("Necessário informar a senha antiga")
+    }
+    if (password && old_password) {
+      const checkOldPassword = await compare(old_password, user.password)
+      if (!checkOldPassword) {
+        throw new AppError("Senha antiga é inválida.")
+      }
+      user.password = await hash(password, 4)
+    }
 
     await database.run(`
     UPDATE users SET
     name = ?,
     email = ?,
+    avatar = ?,
+    password = ?,
     updated_at = DATETIME('now')
-    WHERE id = ?`, [user.name, user.email, id]);
+    WHERE id = ?`,
+      [user.name, user.email, user.avatar, user.password, id]);
 
     return response.status(200).json();
   }
