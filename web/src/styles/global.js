@@ -6,7 +6,10 @@ export default createGlobalStyle`
   box-sizing: border-box;
 }
 body{
-  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
+  font-family: 'Bebas Neue', sans-serif;
+  background: rgba(5,26,52,1);
+  background: linear-gradient(90deg, rgba(5,26,52,1) 0%, rgba(6,39,9,1) 100%);
+
   -webkit-font-smoothing: antialiased;
   color: ${({ theme }) => theme.COLORS.WHITE};
 }
