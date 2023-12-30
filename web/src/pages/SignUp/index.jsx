@@ -12,7 +12,7 @@ export function SignUp() {
         <form>
           <header>
             <p>CADASTRO</p>
-            <a href="">ENTRAR</a>
+            <a href="/">ENTRAR</a>
           </header>
           <Input title="NOME DE USUÁRIO" />
           <Input title="EMAIL" />

@@ -2,6 +2,7 @@ import { Container } from "./styles"
 import astroSignIn from "../../assets/signIn.png"
 import { Input } from "../../components/Input"
 import { Button } from "../../components/Button"
+import { Link } from "react-router-dom"
 export function SignIn() {
   return (
     <Container>
@@ -12,7 +13,7 @@ export function SignIn() {
         <form>
           <header>
             <p>ENTRAR</p>
-            <a href="">CADASTRAR</a>
+            <Link to="register">CADASTRAR</Link>
           </header>
           <Input title="EMAIL" />
           <Input title="SENHA" type="password" />
