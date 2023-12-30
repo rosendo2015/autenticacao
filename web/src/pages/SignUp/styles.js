@@ -29,7 +29,7 @@ span{
   color: ${({ theme }) => theme.COLORS.ORANGERED};
 }
 .wrapperImg img{
-  width: 400px;
+  width: 730px;
 }
 .wrapperForm{
   padding: 3rem; 
