@@ -1,5 +1,5 @@
 require("express-async-errors")
-
+const cors = require("cors")
 const AppError = require("./util/AppError")
 const express = require("express")
 const routes = require("./routes")
@@ -9,7 +9,7 @@ migrationsRun()
 app.use(express.json())
 
 app.use(routes)
-
+app.use(cors())
 app.use((error, request, response, next) => {
   if (error instanceof AppError) {
     return response.status(error.statusCode).json({
