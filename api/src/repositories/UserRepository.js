@@ -1,4 +1,5 @@
 const sqliteConnect = require("../database/sqlite")
+
 class UserRepository {
   async findByEmail(email) {
     const database = await sqliteConnect()

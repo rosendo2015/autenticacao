@@ -13,6 +13,7 @@ function AuthProvider({ children }) {
 
       localStorage.setItem("@authUser:user", JSON.stringify(user))
       localStorage.setItem("@authUser:token", token)
+      
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
       setData({ user, token })

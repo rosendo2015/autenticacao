@@ -14,5 +14,5 @@ it("user should be create", async () => {
 
   console.log(userCreated)
 
-  expect(userCreated).toHaveProperty("name");
+  expect(userCreated).toHaveProperty("id");
 })
